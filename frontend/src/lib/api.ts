@@ -1,6 +1,6 @@
 import type { User } from '../types';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 let authToken: string | null = null;
 let currentUser: User | null = null;
@@ -62,10 +62,10 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 }
 
 export const api = {
-  login: (username: string, password: string) =>
+  login: (email: string, password: string) =>
     request<{ access_token: string; user: User }>('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     }),
 
   getProfile: () => request<User>('/user/profile'),

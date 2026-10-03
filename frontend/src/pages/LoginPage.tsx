@@ -5,7 +5,7 @@ import { api } from '../lib/api';
 import { useAuth } from '../hooks/useAuth';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('ceo');
+  const [email, setEmail] = useState('ceo@shopsmart.com');
   const [password, setPassword] = useState('demo123');
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState('');
@@ -18,7 +18,7 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
     try {
-      const res = await api.login(username, password);
+      const res = await api.login(email, password);
       login(res.user, res.access_token);
       navigate('/');
     } catch {
@@ -41,13 +41,13 @@ export default function LoginPage() {
           <h2 className="text-lg font-semibold text-slate-300 mb-4">Sign In</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="text-xs text-slate-400 mb-1 block">Username</label>
+              <label className="text-xs text-slate-400 mb-1 block">Email</label>
               <input
                 type="text"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className="w-full bg-navy-700 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-300 focus:outline-none focus:border-accent transition"
-                placeholder="Enter username"
+                placeholder="Enter email"
               />
             </div>
             <div>
@@ -79,14 +79,14 @@ export default function LoginPage() {
             <p className="text-xs text-slate-500 mb-2">Demo Accounts:</p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               {[
-                { user: 'ceo', pass: 'demo123', role: 'CEO' },
-                { user: 'sales_mgr', pass: 'demo123', role: 'Sales Mgr' },
-                { user: 'marketing_mgr', pass: 'demo123', role: 'Marketing Mgr' },
-                { user: 'admin', pass: 'admin123', role: 'Admin' },
+                { email: 'ceo@shopsmart.com', pass: 'demo123', role: 'CEO' },
+                { email: 'sales@shopsmart.com', pass: 'demo123', role: 'Sales Mgr' },
+                { email: 'marketing@shopsmart.com', pass: 'demo123', role: 'Marketing Mgr' },
+                { email: 'admin@shopsmart.com', pass: 'admin123', role: 'Admin' },
               ].map(a => (
                 <button
-                  key={a.user}
-                  onClick={() => { setUsername(a.user); setPassword(a.pass); }}
+                  key={a.email}
+                  onClick={() => { setEmail(a.email); setPassword(a.pass); }}
                   className="px-2 py-1.5 bg-navy-700 rounded-lg text-slate-400 hover:text-slate-300 hover:bg-navy-600 transition"
                 >
                   {a.role}
